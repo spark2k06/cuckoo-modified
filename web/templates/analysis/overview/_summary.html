@@ -2,7 +2,8 @@
     <h4>Summary</h4>
     <div class="tabbable tabs">
         <ul class="nav nav-pills" style="margin-bottom: 0;">
-            <li class="active"><a href="#summary_files" data-toggle="tab">Accessed Files</a></li>
+            <li class="active"><a href="#summary_command_lines" data-toggle="tab">Command Lines</a></li>
+            <li><a href="#summary_files" data-toggle="tab">Accessed Files</a></li>
             <li><a href="#summary_read_files" data-toggle="tab">Read Files</a></li>
             <li><a href="#summary_write_files" data-toggle="tab">Modified Files</a></li>
             <li><a href="#summary_delete_files" data-toggle="tab">Deleted Files</a></li>
@@ -15,6 +16,15 @@
             <li><a href="#summary_started_services" data-toggle="tab">Started Services</a></li>
         </ul>
         <div class="tab-content">
+            <div class="tab-pane fade in active" id="command_lines">
+                <div class="well mono">
+                {% if analysis.behavior.summary.command_lines %}
+                    {% for command_line in analysis.behavior.summary.command_lines %}
+                        {{command_line}}<br />
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
             <div class="tab-pane fade in active" id="summary_files">
                 <div class="well mono">
                 {% if analysis.behavior.summary.files %}
