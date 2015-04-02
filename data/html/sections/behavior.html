@@ -20,6 +20,18 @@
             <h4>Behavior Summary</h4>
         </div>
         <div class="well well-small">
+            <b>Command Lines</b>
+            {% if results.behavior.summary.command_lines %}
+                <ul>
+                    {% for command_line in results.behavior.summary.command_lines %}
+                    <li><span class="mono">{{command_line}}</span></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                Nothing to display.
+            {% endif %}
+        </div>
+        <div class="well well-small">
             <b>Accessed Files</b>
             {% if results.behavior.summary.files %}
                 <ul>
