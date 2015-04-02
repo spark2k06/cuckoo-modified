@@ -397,6 +397,7 @@ class Summary:
     key = "summary"
 
     def __init__(self):
+        self.command_lines = []
         self.keys = []
         self.read_keys = []
         self.write_keys = []
@@ -421,6 +422,13 @@ class Summary:
                     name = argument["value"]
             if name and name not in self.keys:
                 self.keys.append(name)
+        elif call["api"].startswith("CreateProcess"):
+            name = None
+            for argument in call["arguments"]:
+                if argument["name"] == "CommandLine":
+                    name = argument["value"]
+            if name and name not in self.command_lines:
+                self.command_lines.append(name)
         elif call["api"].startswith("RegSetValue") or call["api"] == "NtSetValueKey":
             name = None
             for argument in call["arguments"]:
@@ -608,7 +616,7 @@ class Summary:
         """Get registry keys, mutexes and files.
         @return: Summary of keys, read keys, written keys, mutexes and files.
         """
-        return {"files": self.files, "read_files" : self.read_files, "write_files" : self.write_files, "delete_files" : self.delete_files, "keys": self.keys, "read_keys": self.read_keys, "write_keys": self.write_keys, "delete_keys" : self.delete_keys, "mutexes": self.mutexes, "created_services" : self.created_services, "started_services" : self.started_services }
+        return {"files": self.files, "read_files" : self.read_files, "write_files" : self.write_files, "command_lines" : self.command_lines,"delete_files" : self.delete_files, "keys": self.keys, "read_keys": self.read_keys, "write_keys": self.write_keys, "delete_keys" : self.delete_keys, "mutexes": self.mutexes, "created_services" : self.created_services, "started_services" : self.started_services }
 
 class Enhanced(object):
     """Generates a more extensive high-level representation than Summary."""
